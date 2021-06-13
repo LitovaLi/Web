@@ -4,13 +4,12 @@ import csv
 app = Flask(__name__)
 
 
-@app.route('/flights/<id>', methods=['GET'])
-def flights(id):
+@app.route('/flights/<flight_id>', methods=['GET'])
+def flights(flight_id):
     with open('flights.csv') as file:
         file_reader = csv.reader(file)
-        id_flight = id
         for row in file_reader:
-            if row[0] == id_flight:
+            if row[0] == flight_id:
                 data = {
                     'ArrivalTime': row[6],
                     'DepartureTime': row[4],
