@@ -1,7 +1,13 @@
-from flask import Flask, json
+from flask import Flask, json, abort
 import csv
 
 app = Flask(__name__)
+
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return '<h3>Example URL to create query: 127.0.0.1:5000/flights/2 <h3>'
 
 
 @app.route('/flights/<flight_id>', methods=['GET'])
@@ -16,7 +22,7 @@ def flights(flight_id):
                     'Number': row[7]
                 }
                 return json.dumps(data)
-        return "<h3>Sorry, try another id flight<h3>"
+        abort(404)
 
 
 if __name__ == '__main__':
